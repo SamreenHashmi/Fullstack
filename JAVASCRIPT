@@ -1,0 +1,22 @@
+const todoTasks = document.getElementById('todo-tasks');
+const doingTasks = document.getElementById('doing-tasks');
+const doneTasks = document.getElementById('done-tasks');
+
+// Fetch tasks from the API and display them in respective columns
+fetch('/tasks')
+    .then(response => response.json())
+    .then(tasks => {
+        tasks.forEach(task => {
+            const taskElement = document.createElement('div');
+            taskElement.className = 'task';
+            taskElement.textContent = task.title;
+            
+            if (task.status === 'To Do') {
+                todoTasks.appendChild(taskElement);
+            } else if (task.status === 'Doing') {
+                doingTasks.appendChild(taskElement);
+            } else if (task.status === 'Done') {
+                doneTasks.appendChild(taskElement);
+            }
+        });
+    });
